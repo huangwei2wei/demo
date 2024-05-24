@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option java_package = "com.app.empire.protocol.pb.account";
+option java_outer_classname = "AccountLoginMsgProto";
+package account;
+message AccountLoginMsg {
+	 string accountName=1;   //账号名称
+	 string passWord=2;      //密码
+	 int32 channel=3;        //渠道号
+	 string clientModel=4;   //手机型号
+	 string systemName=5;    //手机系统
+	 string systemVersion=6; //系统版本
+	 string nickname=7;   	 //昵称
+}
+

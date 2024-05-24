@@ -1,0 +1,34 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.checkPoint";
+option java_outer_classname = "PlayerCheckPointProto";
+import "PlayerTaskMsg.proto";
+package playerCheckPoint;
+
+// 获取过关数据和挂机信息 8_1
+message PointInfoReqMsg {
+}
+// 返回过关数据和挂机信息 8_1
+message PointInfoResMsg {
+    int32 checkPoint=1;                             // 当前最大过关id
+    int32 onHookTime=2;                             // 已经挂机时间，单位秒
+    repeated playerTask.RewardInfoMsg reward=3;     //已经确认获得的物品
+}
+// 过关请求 8_2
+message PointReqMsg {
+    int32 id=1;// 关卡id。配置表字段 story_id
+    bool win=2; //是否过关 true/false
+}
+//返回协议 8_2
+message PointResMsg {
+        int32 checkPoint=1;                             //当前已过关卡
+        repeated playerTask.RewardInfoMsg reward=2;     //获得的物品
+}
+
+// 挂机领取 8_3
+message OnHookRewardsReqMsg {
+}
+// 挂机领取返回 8_3
+message OnHookRewardsResMsg {
+    int32 onHookTime=1;// 已经挂机时间，单位秒
+    repeated playerTask.RewardInfoMsg reward=2;     //获得的物品
+}

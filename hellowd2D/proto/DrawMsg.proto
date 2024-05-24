@@ -1,0 +1,33 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.draw";
+option java_outer_classname = "DrawMsgProto";
+import "PlayerTaskMsg.proto";
+package draw;
+
+//获取已抽卡的信息，协议号 10_1
+message DrawReqMsg {
+}
+
+//响应获取已抽卡的信息，协议号 10_1
+message DrawResMsg {
+    map<int32,int32> draw = 1;    // 抽卡记录，key:抽卡id号,val:已抽卡次数
+
+    //map<int32,InfoMsg> draw = 1; // key:抽卡的类型，val: 任务宝箱数据
+}
+
+//message InfoMsg {
+    //int32 drawType=1; // 抽卡类型
+    //repeated playerTask.TaskInfoMsg tasks=2; // 任务宝箱列表-包含完成的进度
+//}
+
+
+//抽卡请求,协议号 10_2
+message DrawRandomReqMsg {
+    int32 drawId=1; // 抽卡id  抽卡配置表id
+    int32 num=2;    // 抽卡次数
+}
+
+//相应抽卡请求,协议号 10_2
+message DrawRandomResMsg {
+    repeated playerTask.RewardInfoMsg reward=2;     //获得的物品\英雄或碎片
+}

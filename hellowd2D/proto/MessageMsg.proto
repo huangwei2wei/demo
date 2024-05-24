@@ -1,0 +1,9 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.msg";
+option java_outer_classname = "MessageMsgProto";
+
+message MessageMsg {
+	 string title=1;
+	 string msg=2;
+}
+

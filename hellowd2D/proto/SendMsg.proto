@@ -1,0 +1,12 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.chat";
+option java_outer_classname = "SendMsgProto";
+
+//接受到的聊天消息
+message SendMsg {
+	 int32 channelId=1;   	// 频道id 1世界聊天类型，2私聊,3,队伍聊天-麻将
+	 int32 playerId=2;		// 私聊对象
+	 string message=3;		// 消息
+	 bytes  voiceData=4;	//语音数据
+	 string img=5;			// 表情
+}

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.app.empire.protocol.pb.player";
+option java_outer_classname = "PlayerAttrUpdateProto";
+package player;
+
+//角色属性的更新 协议 3-1
+message PlayerAttrUpdateMsg {
+	 repeated AttrMsg att = 1;  //需要更新的属性
+}
+
+//属性模板
+message AttrMsg {
+	 int32 type = 1;     //1 经验,2 金币，3 钻石。。
+	 int32 totalVal = 2; //变化后的值
+}
+

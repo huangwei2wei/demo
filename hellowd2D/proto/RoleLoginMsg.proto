@@ -1,0 +1,12 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.account";
+option java_outer_classname = "RoleLoginMsgProto";
+
+message RoleLoginMsg {
+	 string nickname=1;
+	 string clientModel=2;// 手机型号
+	 string systemName=3;// 手机系统
+	 string systemVersion=4;// 系统版本
+ 
+}
+

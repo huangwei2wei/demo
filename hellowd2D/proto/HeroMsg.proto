@@ -1,0 +1,113 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.hero";
+option java_outer_classname = "PlayerHeroProto";
+import "PlayerEquipMsg.proto";
+package playerHero;
+
+
+// 获取英雄列表协议号4_1
+message GetHeroMsg {
+}
+//返回协议4_1
+message HeroListMsg {
+        repeated HeroMsg heroList=1;    //英雄列表
+}
+//获得英雄 通知 4_2
+message AddHeroMsg{
+    repeated HeroMsg heroMsg=1;    //英雄列表
+}
+//删除英雄 通知 4_3
+message DelHeroMsg{
+   repeated int32 id=1; //英雄唯一id
+}
+//英雄属性变化通知协议 4—4
+message NotifyAttrMsg {
+        int32 id=1;                 //英雄唯一id
+        repeated AttrMsg attrMsg=2;     //变化后的属性
+}
+//英雄升级请求协议 4—5
+message HeroUpLvReqMsg {
+        int32 id=1;     //英雄 id
+}
+//英雄升级返回协议 4—5
+message HeroUpLvResMsg {
+        HeroMsg hero=1;     //英雄 升级后的数据
+}
+//英雄升星请求协议 4—6
+message HeroUpStarReqMsg {
+        int32 id=1;     //英雄唯一id
+        repeated int32 useHeroId=2;// 要消耗的英雄，英雄唯一id
+}
+//英雄升星返回协议 4—6
+message HeroUpStarResMsg {
+        HeroMsg hero=1;     //英雄升级后的数据
+}
+
+//英雄天赋升级请求协议 4—7
+message HeroUpTalentReqMsg {
+        int32 heroId=1;     //英雄唯一id
+        int32 talentId=2;   //天赋id 天赋表的 talent_id字段
+}
+//英雄天赋升级请求相应协议 4—7
+message HeroUpTalentResMsg {
+        HeroMsg hero=1;     //天赋变化后的英雄数据
+}
+
+//英雄装备穿戴 4—8
+message HeroEquipWearReqMsg {
+        int32 heroId=1;     //英雄唯一id
+        int32 equipId=2;    //装备唯一id
+}
+//英雄装备穿戴返回 4—8
+message HeroEquipWearResMsg {
+        HeroMsg HeroMsg=1;     //英雄数据
+}
+
+// 英雄装备升级 4_9
+message HeroEquipUpLvReqMsg {
+        int32 heroId=1;                 // 英雄唯一id
+        int32 pos=2;                    // 装备所在的槽位id
+        map<int32 ,int32> useEquip=3;   // 消耗的装备，装备列表中的装备, key 是装备流水id，value 是消耗的数量
+}
+// 英雄装备升级返回 4_9
+message HeroEquipUpLvResMsg {
+        HeroMsg heroMsg=1;     //英雄数据
+}
+
+// 英雄装备卸下请求4_10
+message HeroEquipUnloadReqMsg {
+        int32 heroId=1;                 // 英雄唯一id
+        int32 pos=2;                    // 装备所在的槽位id
+}
+// 英雄装备卸下请求返回4_10
+message HeroEquipUnloadResMsg {
+        HeroMsg heroMsg=1;     //英雄数据
+}
+
+
+//英雄间装备替换 4—11 （如果一个装备已经被穿戴了，调用此接口替换装备）
+message HeroEquipReplaceReqMsg {
+        int32 targetHeroId=1;     // 英雄唯一id (给这个英雄穿装备)
+        int32 sourceHeroId=2;     // 装备目前所在的英雄流水id
+        int32 pos=3;              // 装备所在的槽位id
+}
+//英雄间装备替换返回 4—11
+message HeroEquipReplaceResMsg {
+        repeated HeroMsg heroMsg=1;     //英雄数据的变化,根据id 更新英雄数据
+}
+
+message HeroMsg {
+        int32 id=1;                 //英雄唯一id
+        int32 heroId=2;             // 英雄id-配置表id
+        int32 lv=3;                 //等级
+        int32 star=4;                //星级
+        int32 quality=5;                //品质
+        repeated AttrMsg  attrMsg=6;     //属性列表
+        repeated playerEquip.EquipMsg  equipMsg=7;// 英雄装备数据
+        map<int32 ,int32>  talent = 8;  // 天赋数据。key对应配置表的talent_id, 值对应的天赋等级
+}
+//属性模板
+message AttrMsg {
+	 int32 type = 1;            //1血、2攻击、3防御
+	 int32 totalVal = 2;        //变化后的值
+}

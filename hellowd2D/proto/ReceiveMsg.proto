@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_package = "com.app.empire.protocol.pb.chat";
+option java_outer_classname = "ReceiveMsgProto";
+
+//接受到的公告聊天消息
+message ReceiveMsg {
+	 int32  chatType=1;    	// 类型：0普通公告，1 聊天/语音
+	 int32  channelId=2;   	// 频道id 1世界聊天类型，2私聊,3队伍聊天-麻将
+	 string message=3;		// 消息
+	 int32  playerId=4;		// 发送者玩家ID
+	 string sendName=5;		// 发送者昵称
+	 string reveName=6;		// 接受者昵称
+	 string time=7;			// 时间
+ 	 bytes  voiceData=8;	//语音数据
+ 	 string img=9;			// 表情
+}

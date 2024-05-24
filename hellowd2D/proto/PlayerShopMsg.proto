@@ -1,0 +1,57 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.playerShop";
+option java_outer_classname = "PlayerShopProto";
+
+package playerShop;
+
+// 获取所有类型商店数据 (协议 11_1)
+message GetAllShopReqMsg {
+}
+
+// 返回商店数据 (协议 11_1)
+message GetAllShopResMsg {
+  map<int32, ShopMsg> shops = 1; //商店大类型（一级切页）-> 商店数据
+}
+
+message ShopMsg {
+  map<int32, ShopInfoMsg> shopInfos = 1; //商店子类型（二级切页） ->商店数据
+}
+
+message ShopInfoMsg {
+  int32 shopType = 1;                   // 商店类型
+  int32 shopSubType = 2;                // 商店类型
+  int64 continueTime = 3;               // 持续时间单位秒
+  repeated ProductsMsg products = 4;    // 商店商品信息
+}
+
+// 商品
+message ProductsMsg {
+  int32   id = 1;                      // 商品id
+  int32   priceType = 2;                // 价格（物品类型  1, "资源" 2, "道具" 3, "装备" 4, "英雄"）
+  int32   priceObjId = 3;               // 价格（物品Id）
+  int32   priceNum = 4;                 // 价格（物品数量）
+  int32 currCount = 5;                 // 当前已购买次数
+  int32 limitCount = 6;                // 限制购买次数
+  string name = 7;                     // 名字
+  string icon = 8;                     // 图标
+  repeated ProductMsg reward = 9;      // 购买后获得的物品
+}
+
+// 购买后获得的物品
+message ProductMsg {
+  int32   type = 1;                // 物品类型  1, "资源" 2, "道具" 3, "装备" 4, "英雄"
+  int32   objId = 2;               // 物品Id
+  int32   num = 3;                 // 物品数量
+}
+
+// 购买协议 11_2
+message BuyReqMsg {
+  int32 shopType = 1;                   // 商店类型
+  int32 shopSubType = 2;                // 商店类型
+  int32 id = 3;                         // 商品id
+}
+
+// 购买返回 11_2
+message BuyResMsg {
+  repeated ProductMsg reward = 1;      // 购买后获得的物品
+}

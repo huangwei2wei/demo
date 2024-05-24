@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option java_package = "com.app.empire.protocol.pb.playerTask";
+option java_outer_classname = "PlayerTaskProto";
+package playerTask;
+
+//获取玩家任务列表 协议7_1
+message PlayerTaskListMsgReq {
+}
+//返回玩家任务列表 协议7_1
+message PlayerTaskListMsgRes {
+        repeated TaskInfoMsg tasks= 1; // 列表
+}
+
+//更新玩家任务 协议7_2 (推送)
+message upTaskMsgRes {
+          TaskInfoMsg playerTask= 1;
+}
+//任务信息
+message TaskInfoMsg {
+        int32 	taskId =1; 		    // 任务id  对应配置表 task_id
+        int32   taskType =2;        // 任务类型
+        int32 	step =3; 		    // 任务步骤
+        string  taskName =4;	    // 任务名称
+        int32 	state   = 5; 	    // 任务状态	0：未接 1：已接进行中 2：完成未提交 3：已经提交（奖励已经发放）
+        int32 	process = 6;	    // 任务进度
+        int32   conditionNum =7;    // 任务完成条件值
+        RewardsMsg rewards =8;      // 任务奖励
+}
+//任务提交 协议7_3
+message CommitTaskMsgReq {
+        int32 	taskId =1; 		// 任务id  对应配置表 task_id
+}
+//任务提交返回 协议7_3
+message CommitTaskMsgRes {
+        RewardsMsg 	reward =1; 		            // 奖励
+}
+//奖励
+message RewardsMsg {
+        int32 	exp =1; 		            // 经验
+        int32 	diamond =2; 		        // 钻石
+        repeated RewardInfoMsg 	reward =3;          // 奖励物品
+}
+//物品信息
+message RewardInfoMsg {
+        int32 	type =1; 		// 物品类型  1, "资源" 2, "道具" 3, "装备" 4, "英雄"
+        int32   objId =2;       // 物品Id
+        int32 	num =3; 		// 物品数量
+}
+
+

@@ -1,0 +1,37 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.playerItem";
+option java_outer_classname = "PlayerItemProto";
+import "PlayerTaskMsg.proto";
+package playerItem;
+
+// 获取背包物品协议号5_1
+message GetItemMsg {
+}
+
+//返回协议5_1
+message ItemListMsg {
+    repeated ItemMsg itemList=1;//物品列表
+}
+
+message ItemMsg {
+    int32 id=1;         //物品唯一id
+    int32 itemId=2;     // 物品表id
+    int32 itemNum=3;     //当前物品数量，数量为0表示删除
+}
+
+// 背包物品变化协议 5_2
+    message ItemNotifyMsg {
+    repeated ItemMsg itemList=1;  //变化的物品列表
+}
+
+
+// 使用物品 5_3
+message UserItemReqMsg {
+    int32 itemId=1;             // 物品表id
+    int32 itemNum=2;            // 使用物品数量
+    repeated int32 selectIds=3;     //玩家选择的id，对应掉落详细表的id字段，自选宝箱时使用
+}
+// 使用物品返回 5_3
+message UserItemResMsg {
+    repeated playerTask.RewardInfoMsg reward=1;     //获得的物品
+}

@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.account";
+option java_outer_classname = "RoleLoginOkMsgProto";
+package account;
+// 角色登录成功，返回角色数据
+message RoleLoginOkMsg {
+	 int32 playerId=1;  	// 角色id
+	 string nickname=2; 	// 玩家角色名称
+	 int32 lv=3;        	// 玩家等级
+	 int32 lvExp=4;     	// 玩家等级
+	 int32 vipLv=5;     	// 玩家vip等级
+	 int32 vipExp=6;    	// 玩家vip经验
+	 int32 gold=7;      	// 玩家金币数量
+	 int32 diamond=8;   	// 钻石
+	 int32 roomCard=9;  	// 房卡
+ 	 int64 createTime=10; 	//创建时间
+}
+

@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+option java_package = "com.app.empire.protocol.pb.account";
+option java_outer_classname = "HeartbBeatMsgProto";
+message HeartBeatMsg {
+	int64 serviceTime=1; // 服务器当前时间
+}
+

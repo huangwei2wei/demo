@@ -1,0 +1,82 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.playerSkill";
+option java_outer_classname = "PlayerSkillProto";
+
+package playerSkill;
+
+
+// 获取所有技能 9_1
+message AllSkillReqMsg {
+}
+
+// 获取所有技能返回 9_1
+message AllSkillResMsg {
+         map<int32 ,int32>  cultivateSkill = 2;       // 培养获得的技能 如天赋等。 key 技能表id -> value 技能等级
+         map<int32 ,int32>  unCultivateSkill = 3;     // 默认技能。 key 技能表id -> value 技能等级
+}
+
+// 获取技能组设置 9_2
+message GetSkillSetMsg {
+}
+//返回协议 9_2
+message SkillSetMsg {
+        repeated SkillMsg skillSet=1;// 技能组设置
+}
+// 技能组数据
+message SkillMsg {
+        int32 id=1;                     // 组唯一id   1、2、3
+        map<int32 ,int32>  initiativeSkill = 2;  //主动技能map。key对应skill表的 id，val对应技能的等级
+        map<int32 ,int32>  passivitySkill = 3;  // 被动技能map。key对应skill表的 id，val对应技能的等级
+        bool default=4;                         // 默认技能组 // true  当前是默认组
+}
+// 加入技能组协议 9_3
+message AddSkillReqMsg {
+        int32 id=1;                     // 组唯一id
+        int32 skillId=2;                // 技能表id
+}
+// 加入技能组返回 9_3
+message AddSkillResMsg {
+        int32 id=1;                     // 组唯一id
+        int32 skillId=2;                // 技能表id
+}
+// 移出技能组协议 9_4
+message DelSkillReqMsg {
+        int32 id=1;                     // 组唯一id
+        int32 skillId=2;                // 技能表id
+}
+// 移出技能组协议 9_4
+message DelSkillResMsg {
+        int32 id=1;                     // 组唯一id
+        int32 skillId=2;                // 技能表id
+}
+
+// 默认技能升级协议 9_5
+message UpSkillReqMsg {
+        int32 skillId=1;                // 技能表id
+}
+
+// 默认技能升级协议 9_5
+message UpSkillResMsg {
+        int32 skillId=1;                // 技能表id
+        int32 skillLv=2;                // 升级后的等级
+}
+
+
+// 设置默认组 9_6
+message SetDefaultReqMsg {
+        int32 id=1;                     // 组唯一id   1、2、3
+}
+// 设置默认组 9_6
+message SetDefaultResMsg {
+        int32 id=1;                     // 组唯一id   1、2、3
+}
+
+// 清空技能 9_7
+message CleanSkillReqMsg {
+        int32 id=1;                     // 组唯一id   1、2、3
+        int32 type=2;                   // 清空技能类型 0 主动 ，1 被动
+}
+// 清空技能 9_7
+message CleanSkillResMsg {
+        SkillMsg  skills=1;             // 技能数据
+}

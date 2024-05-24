@@ -1,0 +1,47 @@
+syntax = "proto3";
+option java_package = "com.app.empire.protocol.pb.playerEquip";
+option java_outer_classname = "PlayerEquipProto";
+
+package playerEquip;
+
+//  获取装备列表 协议号6_1
+message GetEquipMsg {
+}
+
+//返回协议 6_1
+message EquipListMsg {
+        repeated EquipMsg equipList=1;   // 装备背包
+        //repeated EquipMsg wearList=2;    // 已经穿上的装备
+}
+
+message EquipMsg {
+        int32 id=1;                     // 唯一id
+        int32 equipId=2;                // 装备表id
+        int32 num=3;                    // 装备的数量
+        int32 pos=4;                    // 位置
+        int32 lv=5;                     // 装备等级
+        repeated AttrMsg attrMsg=6;     // 装备属性-total
+        int32 exp=7;                    // 装备等价经验
+        int32 currExp=8;                // 装备当前经验
+        int32 heroId =9;                // 装备所在的英雄流水id, 大于0时说明在英雄身上的装备
+
+        repeated AttrMsg baseAttrMsg=10;     // 装备基础属性
+        repeated AttrMsg exclusiveAttrMsg=11;     // 装备专属属性
+        repeated int32 skillId = 12;               // 装备专属技能
+}
+
+// 装备添加 6_2（推送）
+message EquipAddNotifyMsg {
+        repeated EquipMsg itemList=1;  //变化的物品列表结果
+}
+
+// 装备删除通知 6_3（推送）
+message EquipDelNotifyMsg {
+    map<int32,int32> delEquip = 1;  // 删除的装备数据。key删除的装备流水id, 值对应 当前装备剩余数量.为0时装备要删除
+}
+
+//属性模板
+message AttrMsg {
+	 int32 type = 1;            //1血、2攻击、3防御
+	 int32 totalVal = 2;        //变化后的值
+}

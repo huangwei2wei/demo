@@ -1,0 +1,15 @@
+{
+  "name": "hellowd2d",
+  "uuid": "4c51fe6b-8a4d-4b9d-9757-7babc3361726",
+  "creator": {
+    "version": "3.8.2"
+  },
+  "dependencies": {
+    "protobufjs": "^7.3.0"
+  },
+  "scripts": {
+    "build-proto:pbjs": "pbjs --dependency protobufjs/minimal.js --target static-module --wrap commonjs --out ./assets/script/protoMsg.js ./proto/*.proto",
+    "build-proto:pbts": "pbts --main --out ./assets/script/protoMsg.d.ts ./assets/script/protoMsg.js && node ./wrap-pbts-result.js"
+  }
+}
+ 
