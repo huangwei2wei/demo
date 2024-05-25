@@ -1,6 +1,6 @@
 const fs = require('fs');
 const ps = require('path');
-const file = ps.join(__dirname, 'assets', 'script', 'protoMsg.d.ts');
+const file = ps.join(__dirname, 'assets', 'script', 'protoMsg.js.d.ts');
 const original = fs.readFileSync(file, { encoding: 'utf8' });
 
 // const str = "import * as $protobuf from \"protobufjs\";\nimport Long = require(\"long\");";

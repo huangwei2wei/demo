@@ -1,6 +1,7 @@
 import { _decorator, Component } from 'cc';
 import protobufjs from 'protobufjs';
 import protoMsg from './protoMsg.js';
+
 const { ccclass, property } = _decorator;
 
 @ccclass('Hw')
@@ -8,7 +9,7 @@ export class Hw extends Component {
     start() {
         console.log(protobufjs);
         console.log(protoMsg);
-        
+
         var msg: protoMsg.account.AccountLoginMsg = new protoMsg.account.AccountLoginMsg();
         msg.accountName = "accountName+";
         msg.passWord = "123456";
@@ -17,7 +18,8 @@ export class Hw extends Component {
         msg.clientModel = "king";
         var a = protoMsg.account.AccountLoginMsg.encode(msg).finish();
 
-        console.log(a);
+        let reqMsg: protoMsg.account.AccountLoginMsg = protoMsg.account.AccountLoginMsg.decode(a);
+        console.log(reqMsg);
 
         // var msg :account.AccountLoginMsg = new account.AccountLoginMsg();
         // msg.accountName=accountName+"";
